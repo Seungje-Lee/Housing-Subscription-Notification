@@ -13,4 +13,9 @@ https://www.applyhome.co.kr/cu/cuc/selectSubscrptAllimiView.do
 ## Reference
 
 ### Map Source(GeoJSON)
+
+* Korea's National Map Source.  
+https://github.com/southkorea/southkorea-maps/tree/master/kostat/2018/json
+
+* Korea's Districts Map Source.  
 https://github.com/southkorea/southkorea-maps/tree/master/kostat/2013/json
