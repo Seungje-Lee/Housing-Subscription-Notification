@@ -14,8 +14,10 @@ https://www.applyhome.co.kr/cu/cuc/selectSubscrptAllimiView.do
 
 ### Map Source(GeoJSON)
 
-* Korea's National Map Source.  
-https://github.com/southkorea/southkorea-maps/tree/master/kostat/2018/json
+* 전국 지도 GeoJSON source  
+https://github.com/southkorea/southkorea-maps/tree/master/kostat/2018/json  
 
-* Korea's Districts Map Source.  
-https://github.com/southkorea/southkorea-maps/tree/master/kostat/2013/json
+* 지역구 지도 GeoJSON source  
+https://github.com/southkorea/southkorea-maps/tree/master/kostat/2013/json  
+2013년 지리정보 이후 2014년 청주시-청원시 통합, 2023년 군위군의 대구광역시 편입 반영  
+2026년 인천광역시 행정체제 개편 예정되어 있음
