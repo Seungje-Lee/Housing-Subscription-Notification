@@ -4,17 +4,22 @@
   <meta charset="utf-8" />
   <title>상세 지도</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <style>
-    #map { height: 100vh; }
-  </style>
+  <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
+  <link rel="stylesheet" href="./map-styles.css" />
 </head>
-<body>
-  <button>&lt;뒤로가기</button>
+<body style="margin: 0; overflow: hidden;">
+  <div class="button-container">
+    <button style="margin-right: 3px;">&larr; 전국 지도로 돌아가기</button>
+    <button style="margin-left: 3px;">지역구 선택 완료</button>
+  </div>
   <div id="map"></div>
-
+  <div class="selected-info">
+    선택 지역 목록
+    <ul>
+    </ul>
+  </div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="js/detail-map-draw.js"></script>
+  <script src="js/detailed-map-draw.js"></script>
 </body>
 </html>
