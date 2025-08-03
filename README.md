@@ -1,1 +1,23 @@
-** Housing-Subscription-Notification **
+# Housing Subscription Notification Service
+
+## Purpose
+
+https://www.applyhome.co.kr/cu/cuc/selectSubscrptAllimiView.do
+
+<img width="735" height="384" alt="청약홈 알리미 서비스" src="https://github.com/user-attachments/assets/ee2a7026-2223-4693-a66d-a2c06bdbc3d8" />
+
+청약홈에서 제공하는 관심지역/관심공고 청약알리미 서비스는 아파트/공공지원민간임대/무순위청약/불법행위재공급 등 전 유형의 청약을 통틀어 10개의 알림밖에 받지 못하는 문제를 해소하고자 합니다.   
+
+또한 전국 지자체의 이름이 가나다순으로만 정렬되어 원하는 지역을 손쉽게 찾기 어려웠던 점을 지도를 이용하여 손쉽게 확인할 수 있도록 합니다.
+
+## Reference
+
+### Map Source(GeoJSON)
+
+* 전국 지도 GeoJSON source  
+https://github.com/southkorea/southkorea-maps/tree/master/kostat/2018/json  
+
+* 지역구 지도 GeoJSON source  
+https://github.com/southkorea/southkorea-maps/tree/master/kostat/2013/json  
+2013년 지리정보 이후 2014년 청주시-청원시 통합, 2023년 군위군의 대구광역시 편입 반영  
+2026년 인천광역시 행정체제 개편 예정되어 있음
