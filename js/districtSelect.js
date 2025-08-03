@@ -1,7 +1,5 @@
-const submitButton = document.getElementById("submitButton");
-let selectedDistrictId = [];
-
-function districtSelect(districtId) {
+/*export let selectedDistrictId = [];
+export function districtSelect(districtId) {
   if(!selectedDistrictId.includes(districtId))
     selectedDistrictId.push(districtId);
   else {
@@ -10,7 +8,21 @@ function districtSelect(districtId) {
       selectedDistrictId.splice(index, 1);
   }
   console.log(selectedDistrictId);
-}
+}*/
+
+const submitButton = document.getElementById("submitButton");
+//let selectedDistrictId = [];
+
+/*function districtSelect(districtId) {
+  if(!selectedDistrictId.includes(districtId))
+    selectedDistrictId.push(districtId);
+  else {
+    let index = selectedDistrictId.indexOf(districtId);
+    if(index !== -1)
+      selectedDistrictId.splice(index, 1);
+  }
+  console.log(selectedDistrictId);
+}*/
 
 function submitDistrict() {
   selectedDistrictId.sort();

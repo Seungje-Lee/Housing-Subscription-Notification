@@ -14,15 +14,21 @@
       자세한 설명을 첨부하여 알림으로 제공하는 서비스입니다.
     </p>
     <!-- <div class="bg-image"></div> -->
-    <form id="login-form">
+    <form id="sign-in-form">
       <!-- 이메일 유효성 검사를 위해 type을 email이 아닌 text로 함 -->
-      <input id="email" type="text" required placeholder="이메일 주소" />
+      <input
+        id="email"
+        type="text"
+        required
+        placeholder="알림을 받을 이메일 주소"
+      />
       <input id="password" type="password" required placeholder="비밀번호" />
-      <button type="submit">로그인</button>
+      <button type="submit">회원가입</button>
     </form>
     <span
-      >계정이 없으신가요?
-      <a href="/create-account.html">계정 생성 페이지로 이동</a></span
+      >이미 계정이 있으신가요?<a href="/index.html"
+        >로그인 페이지로 이동</a
+      ></span
     >
     <span class="notification-msg"></span>
 
@@ -32,7 +38,7 @@
   a {
     color: #1d9bf0;
   } -->
-    <script type="module" src="js/admin.js"></script>
+    <script type="module" src="js/create-account.js"></script>
     <script type="module" src="firebase.js"></script>
   </body>
 </html>
