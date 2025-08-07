@@ -6,7 +6,6 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import { FirebaseError } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
-console.log("HELLO", auth);
 const bgImage = document.querySelector(".bg-image");
 const email = document.querySelector("#email");
 const password = document.querySelector("#password");
@@ -43,7 +42,6 @@ async function handleAccountCreation(event) {
     return;
   }
   notiMsg.innerHTML = "";
-  console.log(email.value, password.value);
 
   await auth.authStateReady();
 
@@ -67,7 +65,6 @@ async function handleAccountCreation(event) {
       notiMsg.innerHTML = "오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
     }
 
-    console.log(credentials, email, password);
     // notiMsg.innerHTML =
     //   "계정을 생성했습니다. 잠시 후 로그인 페이지로 이동합니다.";
     // setTimeout(() => {

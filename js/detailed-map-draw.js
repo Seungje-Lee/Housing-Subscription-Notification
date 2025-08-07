@@ -1,10 +1,22 @@
-import { auth } from "../firebase.js";
+import { auth, db } from "../firebase.js";
+import {
+  addDoc,
+  setDoc,
+  doc,
+  collection,
+  where,
+  query,
+  getDoc,
+  getDocs,
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 // 쿼리 파라미터에서 지역 코드 추출
 const params = new URLSearchParams(window.location.search);
 const region = params.get("region");
 const undoButton = document.querySelector("button");
 const logOutBtn = document.getElementById("logout");
+const listSubmitBtn = document.getElementById("listSubmit");
 const selectedDistrictList = document.querySelector(".selected-info ul");
 const mapCode = {
   seoul: "서울특별시",
@@ -36,10 +48,10 @@ function districtSelect(regionCode, districtName) {
   let selectedDistrict = [];
 
   if (localStorage.getItem("district") == null) {
-    console.log(mapCode(regionCode));
     selectedDistrict.push(mapCode[regionCode] + " " + districtName);
   } else {
     selectedDistrict = JSON.parse(localStorage.getItem("district") || "[]");
+
     // 이미 localStorage에 저장되어 있다면 제거하고, 없으면 넣는 과정
     let index = selectedDistrict.indexOf(
       mapCode[regionCode] + " " + districtName
@@ -120,7 +132,6 @@ function drawMap(regionCode) {
               mapCode[regionCode] + " " + feature.properties.name
             ) !== -1
           ) {
-            console.log(feature.properties.name);
             layer.setStyle(
               {
                 weight: 2,
@@ -253,5 +264,67 @@ function handleLogOut() {
   });
 }
 
+async function handleSubmit() {
+  const user = auth.currentUser;
+  const selectedDistrict = JSON.parse(localStorage.getItem("district"));
+  confirm("아래 지역 목록을 제출하시겠습니까?");
+  try {
+    await setDoc(doc(db, "notificationList", user.uid), {
+      selectedDistrict,
+    });
+    // await addDoc(collection(db, "notificationList"), {
+    //   selectedDistrict,
+    //   userId: user.uid,
+    // });
+    // console.log("제출됨");
+
+    /*await setDoc(doc(db, "cities", "LA"), {
+  name: "Los Angeles",
+  state: "CA",
+  country: "USA"
+});*/
+
+    // const snapshot = await getDocs(tweetsQuery);
+    // const tweets = snapshot.docs.map((doc) => {
+    //   const { createdAt, tweet, userId, username } = doc.data();
+    //   return {
+    //     createdAt,
+    //     tweet,
+    //     userId,
+    //     username,
+    //     id: do xc.id,
+    //   };
+    // });
+
+    const getQuery = query(
+      collection(db, "notificationList"),
+      where("userId", "==", user?.uid)
+    );
+    //    const snapshot = await getDoc(getQuery);
+    //    console.log(snapshot);
+
+    const docSnap = await getDoc(doc(db, "notificationList", user.uid));
+
+    console.log(docSnap.data().selectedDistrict);
+
+    // snapshot.docs.map((doc) => {
+    //   const list = doc.data();
+    //   console.log(list)
+    // });
+
+    // console.log(
+    //   snapshot.docs[0]._document.data.value.mapValue.fields.selectedDistrict
+    //     .arrayValue.values[0].stringValue
+    // );
+
+    // const fetchTweets = async () => {
+    //   const querySnapshot = await getDocs(collection(db, "notificationList"));
+    //   console.log(querySnapshot);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 undoButton.addEventListener("click", displayProvince);
 logOutBtn.addEventListener("click", handleLogOut);
+listSubmitBtn.addEventListener("click", handleSubmit);

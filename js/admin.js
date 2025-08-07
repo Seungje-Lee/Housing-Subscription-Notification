@@ -6,8 +6,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import { FirebaseError } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
-console.log("HELLO", auth);
-const bgImage = document.querySelector(".bg-image");
+// const bgImage = document.querySelector(".bg-image");
 const email = document.querySelector("#email");
 const password = document.querySelector("#password");
 const loginForm = document.querySelector("#login-form");
@@ -46,7 +45,6 @@ async function handleLogin(event) {
     return;
   }
   notiMsg.innerHTML = "";
-  console.log(email.value, password.value);
 
   await auth.authStateReady();
 
@@ -57,7 +55,6 @@ async function handleLogin(event) {
       password.value
     );
     const user = userCredential.user;
-    console.log(user);
     if (!user.emailVerified) {
       notiMsg.innerHTML =
         "이메일 검증을 완료하지 않았습니다. 수신한 이메일을 확인해주세요.";
@@ -67,7 +64,7 @@ async function handleLogin(event) {
     notiMsg.innerHTML =
       "로그인에 성공하였습니다. 잠시 후 내 프로필로 이동합니다...";
     setTimeout(() => {
-      window.location.href = `map.html`;
+      window.location.href = `list-display.html`;
     }, 2000);
   } catch (e) {
     switch (e.code) {

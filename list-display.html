@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>부동산 청약 알림 서비스</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
+    <link rel="stylesheet" href="./list-display-style.css" />
+  </head>
+  <body>
+    <button id="logout">로그아웃</button>
+    <!-- <main class="list-container"> -->
+    <div id="apt" class="saved-list">
+      <p>아파트 알림 신청 현황</p>
+      <button>지도에서 지역 선택</button>
+      <ul></ul>
+    </div>
+    <div id="office" class="saved-list">
+      <p>도시형/오피스텔/생활숙박시설/민간임대 알림 신청 현황</p>
+      <button>지도에서 지역 선택</button>
+      <ul></ul>
+    </div>
+    <div id="public-rent" class="saved-list">
+      <p>공공지원민간임대 알림 신청 현황</p>
+      <button>지도에서 지역 선택</button>
+      <ul></ul>
+    </div>
+    <div id="random" class="saved-list">
+      <p>무순위청약 알림 신청 현황</p>
+      <button>지도에서 지역 선택</button>
+      <ul></ul>
+    </div>
+    <div id="resupply-torts" class="saved-list">
+      <p>불법행위 재공급 알림 신청 현황</p>
+      <button>지도에서 지역 선택</button>
+      <ul></ul>
+    </div>
+    <div id="pre-private" class="saved-list">
+      <p>민간사전청약 알림 신청 현황</p>
+      <button>지도에서 지역 선택</button>
+      <ul></ul>
+    </div>
+    <div id="voluntary-supply" class="saved-list">
+      <p>임의공급 알림 신청 현황</p>
+      <button>지도에서 지역 선택</button>
+      <ul></ul>
+    </div>
+    <!-- </main> -->
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="js/list-manage.js"></script>
+  </body>
+</html>

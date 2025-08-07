@@ -1,8 +1,16 @@
-import { auth } from "../firebase.js";
+import { auth, db } from "../firebase.js";
 import {
-  signOut,
-  onAuthStateChanged,
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+  setDoc,
+  doc,
+  collection,
+  where,
+  query,
+  getDoc,
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+const logoutBtn = document.getElementById("logout");
+const listSubmitBtn = document.getElementById("listSubmit");
 
 // 왜 auth.currentUser를 체크하면 안되는거지?
 auth.onAuthStateChanged((user) => {
@@ -50,7 +58,6 @@ fetch("mapdata/korea.json")
 
 // ul에 localStorage에 있는 지역구 목록 추가하기
 const selectedDistrictList = document.querySelector(".selected-info ul");
-
 JSON.parse(localStorage.getItem("district") || "[]").map((item) => {
   const district = document.createElement("li");
   district.textContent = item;
@@ -84,6 +91,28 @@ function zoomToFeature(e) {
   }
 }
 
+async function handleSubmit() {
+  const user = auth.currentUser;
+  const selectedDistrict = JSON.parse(localStorage.getItem("district"));
+  confirm("아래 지역 목록을 제출하시겠습니까?");
+  try {
+    await setDoc(doc(db, "notificationList", user.uid), {
+      selectedDistrict,
+    });
+
+    const getQuery = query(
+      collection(db, "notificationList"),
+      where("userId", "==", user?.uid)
+    );
+
+    const docSnap = await getDoc(doc(db, "notificationList", user.uid));
+
+    console.log(docSnap.data().selectedDistrict);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 // 시도 이름을 코드화
 function getRegionCode(name) {
   const mapCode = {
@@ -109,13 +138,12 @@ function getRegionCode(name) {
   return mapCode[name];
 }
 
-const logOutBtn = document.getElementById("logout");
-
-function handleLogOut() {
+function handleLogout() {
   signOut(auth).then(() => {
     alert("로그아웃되었습니다.");
     window.location.href = `index.html`;
   });
 }
 
-logOutBtn.addEventListener("click", handleLogOut);
+logoutBtn.addEventListener("click", handleLogout);
+listSubmitBtn.addEventListener("click", handleSubmit);
