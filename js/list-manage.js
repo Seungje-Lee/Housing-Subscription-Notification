@@ -36,22 +36,21 @@ const user = auth.currentUser;
 // const snapshot = await getDoc(getQuery);
 // console.log(snapshot);
 
-// apt office public-rent random resupply-torts pre-private voluntary-supply
-
 const realtyType = [
   "apt",
   "office",
-  "public-rent",
+  "publicRent",
   "random",
-  "resupply-torts",
-  "pre-private",
-  "voluntary-supply",
+  "resupplyTorts",
+  "prePrivate",
+  "voluntarySupply",
 ];
 
 const docSnap = await getDoc(doc(db, "notificationList", user.uid));
 
 // console.log(docSnap.data().apt);
 
+// 각 청약 유형별로 신청한 지역별 알림 정보를 보여줌
 realtyType.forEach((realty) => {
   const selectedRealtyType = document.querySelector(`#${realty} ul`);
   const storedList = docSnap.data()[realty];
@@ -71,6 +70,17 @@ function handleLogout() {
 }
 
 logoutBtn.addEventListener("click", handleLogout);
+
+function directToMap(type) {
+  window.location.href = `maptest.html?type=${type}`;
+}
+
+realtyType.forEach(function (type) {
+  const directToMapBtn = document.querySelector(`#${type} button`);
+  directToMapBtn.addEventListener("click", () => {
+    directToMap(type);
+  });
+});
 
 // function districtSelect(regionCode, districtName) {
 //   let selectedDistrict = [];

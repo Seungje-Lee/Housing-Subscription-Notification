@@ -9,6 +9,8 @@ button {
   /* Add any desired button styling here */
   padding: 10px 20px;
   font-size: 16px;
+  margin-left: 3px;
+  margin-right: 3px;
 }
 
 .button-container {

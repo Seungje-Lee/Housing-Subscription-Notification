@@ -41,10 +41,10 @@ async function handleLogin(event) {
   // gmail까지만 입력할 경우 invalid-email이 아닌 invalid-credential이 나오기 때문
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!emailRegex.test(email.value)) {
-    notiMsg.innerHTML = "유효한 이메일 주소를 입력하세요";
+    notiMsg.textContent = "유효한 이메일 주소를 입력하세요";
     return;
   }
-  notiMsg.innerHTML = "";
+  notiMsg.textContent = "";
 
   await auth.authStateReady();
 
@@ -56,12 +56,12 @@ async function handleLogin(event) {
     );
     const user = userCredential.user;
     if (!user.emailVerified) {
-      notiMsg.innerHTML =
+      notiMsg.textContent =
         "이메일 검증을 완료하지 않았습니다. 수신한 이메일을 확인해주세요.";
       return;
     }
 
-    notiMsg.innerHTML =
+    notiMsg.textContent =
       "로그인에 성공하였습니다. 잠시 후 내 프로필로 이동합니다...";
     setTimeout(() => {
       window.location.href = `list-display.html`;
@@ -71,16 +71,16 @@ async function handleLogin(event) {
       case "auth/invalid-credential":
       case "auth/wrong-password":
       case "auth/user-not-found":
-        notiMsg.innerHTML = "잘못된 이메일 또는 비밀번호입니다.";
+        notiMsg.textContent = "잘못된 이메일 또는 비밀번호입니다.";
         break;
 
       case "auth/too-many-requests":
-        notiMsg.innerHTML =
+        notiMsg.textContent =
           "단기간에 많은 로그인 시도가 감지되었습니다. 잠시 후 다시 시도해주세요.";
 
       // auth/internal-error,
       default:
-        notiMsg.innerHTML = "오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
+        notiMsg.textContent = "오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
     }
   }
 }

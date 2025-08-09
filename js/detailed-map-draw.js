@@ -84,12 +84,12 @@ if (!region) {
 }
 
 function drawMap(regionCode) {
-  const regionCenter = getRegionCenter(regionCode);
+  // const regionCenter = getRegionCenter(regionCode);
 
-  if (!regionCenter) {
-    alert("지도 중심 정보를 찾을 수 없습니다.");
-    return;
-  }
+  // if (!regionCenter) {
+  //   alert("지도 중심 정보를 찾을 수 없습니다.");
+  //   return;
+  // }
 
   const map = L.map("map").setView(regionCenter.center, regionCenter.zoom);
 
@@ -224,34 +224,34 @@ function resetStyle(event) {
 }
 
 // 지역 중심좌표 및 줌 설정
-function getRegionCenter(regionCode) {
-  const centers = {
-    // map.fitBounds()를 적용한 중심, 그런데 이게 지도를 자동으로 조정하기 떄문에
-    // 이쪽에 설정한 center, zoom 값은 의마가 없다.
-    // 그래도 map.fitBounds()를 하면 GeoJSON 크기에 맞게 자동으로 조정해줄 테니 이 코드를 쓰는게 나을듯
-    // 이 줄은 GeoJSON 레이어의 경계에 맞게 지도 중심과 줌 레벨을 자동 조정합니다.
-    // 즉, getRegionCenter()로 설정한 초기 중심이 fitBounds()에 의해 무시되는 것입니다.
-    seoul: { center: [37.5665, 126.978], zoom: 11 },
-    busan: { center: [35.1796, 129.0756], zoom: 11 },
-    daegu: { center: [35.8714, 128.6014], zoom: 11 },
-    incheon: { center: [37.4563, 126.7052], zoom: 11 },
-    gwangju: { center: [35.1595, 126.8526], zoom: 11 },
-    daejeon: { center: [36.3504, 127.3845], zoom: 11 },
-    ulsan: { center: [35.5384, 129.3114], zoom: 11 },
-    sejong: { center: [36.4801, 127.289], zoom: 11 },
-    gyeonggi: { center: [37.4138, 127.5183], zoom: 9 },
-    gangwon: { center: [37.8228, 128.1555], zoom: 9 },
-    chungbuk: { center: [36.6357, 127.4917], zoom: 9 },
-    chungnam: { center: [36.5184, 126.8], zoom: 9 },
-    jeonbuk: { center: [35.7167, 127.1442], zoom: 9 },
-    jeonnam: { center: [34.8161, 126.4632], zoom: 9 },
-    gyeongbuk: { center: [36.576, 128.5056], zoom: 9 },
-    gyeongnam: { center: [35.2773, 128.4046], zoom: 10 },
-    jeju: { center: [33.4996, 126.5312], zoom: 11 },
-  };
+// function getRegionCenter(regionCode) {
+//   const centers = {
+//     // map.fitBounds()를 적용한 중심, 그런데 이게 지도를 자동으로 조정하기 떄문에
+//     // 이쪽에 설정한 center, zoom 값은 의마가 없다.
+//     // 그래도 map.fitBounds()를 하면 GeoJSON 크기에 맞게 자동으로 조정해줄 테니 이 코드를 쓰는게 나을듯
+//     // 이 줄은 GeoJSON 레이어의 경계에 맞게 지도 중심과 줌 레벨을 자동 조정합니다.
+//     // 즉, getRegionCenter()로 설정한 초기 중심이 fitBounds()에 의해 무시되는 것입니다.
+//     seoul: { center: [37.5665, 126.978], zoom: 11 },
+//     busan: { center: [35.1796, 129.0756], zoom: 11 },
+//     daegu: { center: [35.8714, 128.6014], zoom: 11 },
+//     incheon: { center: [37.4563, 126.7052], zoom: 11 },
+//     gwangju: { center: [35.1595, 126.8526], zoom: 11 },
+//     daejeon: { center: [36.3504, 127.3845], zoom: 11 },
+//     ulsan: { center: [35.5384, 129.3114], zoom: 11 },
+//     sejong: { center: [36.4801, 127.289], zoom: 11 },
+//     gyeonggi: { center: [37.4138, 127.5183], zoom: 9 },
+//     gangwon: { center: [37.8228, 128.1555], zoom: 9 },
+//     chungbuk: { center: [36.6357, 127.4917], zoom: 9 },
+//     chungnam: { center: [36.5184, 126.8], zoom: 9 },
+//     jeonbuk: { center: [35.7167, 127.1442], zoom: 9 },
+//     jeonnam: { center: [34.8161, 126.4632], zoom: 9 },
+//     gyeongbuk: { center: [36.576, 128.5056], zoom: 9 },
+//     gyeongnam: { center: [35.2773, 128.4046], zoom: 10 },
+//     jeju: { center: [33.4996, 126.5312], zoom: 11 },
+//   };
 
-  return centers[regionCode];
-}
+//   return centers[regionCode];
+// }
 
 function displayProvince() {
   window.location.href = `map.html`;
@@ -267,7 +267,7 @@ function handleLogOut() {
 async function handleSubmit() {
   const user = auth.currentUser;
   const selectedDistrict = JSON.parse(localStorage.getItem("district"));
-  confirm("아래 지역 목록을 제출하시겠습니까?");
+  if (!confirm("아래 지역 목록을 제출하시겠습니까?")) return;
   try {
     await setDoc(doc(db, "notificationList", user.uid), {
       selectedDistrict,

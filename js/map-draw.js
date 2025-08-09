@@ -37,7 +37,7 @@ fetch("mapdata/korea.json")
         color: "#333",
         weight: 1,
         fillColor: "#ffcc66",
-        fillOpacity: 0.6,
+        fillOpacity: 0.5,
       },
       onEachFeature: (feature, layer) => {
         /*layer.bindTooltip(feature.properties.name, {
