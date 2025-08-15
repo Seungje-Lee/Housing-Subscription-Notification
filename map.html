@@ -4,17 +4,18 @@
     <meta charset="utf-8" />
     <title>대한민국 시도별 지도</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
-    <link rel="stylesheet" href="./map-styles.css" />
+    <link rel="stylesheet" href="src/map-styles.css" />
   </head>
-  <body style="margin: 0; overflow: hidden">
+  <body>
     <div class="button-container">
-      <button id="listSubmit" style="margin-right: 3px">
-        지역구 선택 완료
+      <button id="undo-to-list">&larr;유형별 알림 리스트로 돌아가기</button>
+      <button id="undo-to-map" style="display: none">
+        &larr;전국 지도로 돌아가기
       </button>
-      <button id="logout" style="margin-left: 3px">로그아웃</button>
+      <button id="list-submit">지역구 선택 완료</button>
+      <button id="logout">로그아웃</button>
     </div>
     <div id="map"></div>
     <div class="selected-info">
@@ -22,7 +23,7 @@
       <ul></ul>
     </div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script type="module" src="js/map-draw.js"></script>
+    <script type="module" src="src/map-control.js"></script>
     <script type="module" src="firebase.js"></script>
   </body>
 </html>

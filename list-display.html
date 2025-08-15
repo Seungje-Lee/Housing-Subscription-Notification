@@ -5,7 +5,7 @@
     <title>부동산 청약 알림 서비스</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
-    <link rel="stylesheet" href="./list-display-style.css" />
+    <link rel="stylesheet" href="src/list-display-style.css" />
   </head>
   <body>
     <button id="logout">로그아웃</button>
@@ -30,6 +30,11 @@
       <button>지도에서 지역 선택</button>
       <ul></ul>
     </div>
+    <div id="newlyweds" class="saved-list">
+      <p>신혼희망타운 알림 신청 현황</p>
+      <button>지도에서 지역 선택</button>
+      <ul></ul>
+    </div>
     <div id="resupplyTorts" class="saved-list">
       <p>불법행위 재공급 알림 신청 현황</p>
       <button>지도에서 지역 선택</button>
@@ -47,6 +52,6 @@
     </div>
     <!-- </main> -->
     <script type="module" src="firebase.js"></script>
-    <script type="module" src="js/list-manage.js"></script>
+    <script type="module" src="src/list-manage.js"></script>
   </body>
 </html>

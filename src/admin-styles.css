@@ -1,0 +1,107 @@
+@font-face {
+  font-family: "SeoulHangangM";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SeoulHangangM.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: "SeoulHangangM";
+}
+
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  width: 800px;
+  padding: 50px 0px;
+}
+
+/* .bg-image {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:contain;
+  width: 100%;
+  height: 400px;
+  opacity: 0.3;
+} */
+
+h1 {
+  /* margin-top: 1%; */
+  text-align: center;
+  font-size: 42px;
+  width: auto;
+}
+
+p {
+  /* width: 70%  */
+  width: auto;
+  font-size: 30px;
+}
+
+input,
+button {
+  /* margin-top: 10px; */
+  padding: 15px 20px;
+  border-radius: 50px;
+  border: solid;
+  border-color: #1d9bf0;
+  font-size: 16px;
+  box-sizing: border-box;
+  margin: auto;
+  width: 70%;
+}
+
+button[type="submit"] {
+  cursor: pointer;
+  background-color: #1d9bf0;
+  color: white;
+}
+
+button[type="submit"]:hover {
+  opacity: 0.8;
+}
+
+/* form {
+  position: relative;
+  transform: translateY(-50%);
+  margin-top: 40%;
+  margin-bottom: ;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+} */
+form {
+  margin-top: 50px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+span {
+  margin-top: 20px;
+  font-weight: 800;
+  color: #ed4848;
+}
+
+.selected-info {
+  position: absolute;
+  width: 260px;
+  top: 300px;
+  left: 40px;
+  bottom: 40px;
+  padding: 10px 10px;
+  border-radius: 30px;
+  z-index: 2;
+  font-weight: bold;
+  text-align: center;
+  color: #ffffff;
+  background-color: #118bee;
+  overflow-y: scroll;
+}
