@@ -13,11 +13,13 @@ setGlobalOptions({ region: "asia-northeast3", maxInstances: 10 });
 const serviceKey = process.env.SERVICE_KEY;
 
 const date = new Date();
-date.setDate(date.getDate() - 1); // 청약홈 API가 익일 반영되는 것을 고려
+// date.setDate(date.getDate() - 1); // 청약홈 API가 익일 반영되는 것을 고려
+// -> 서버가 UTC 기준이라 1을 안빼도 됨, n일 08시 기준으로 서버는 n-1일 23시인 상태임, 굳이 날짜 안 바꿔도 괜찮다
 const year = date.getFullYear();
 const month =
   date.getMonth() + 1 >= 10 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1);
 const day = date.getDate() >= 10 ? date.getDate() : "0" + date.getDate();
+logger.log(date);
 
 const urlList = {
   apt: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancDetail?page=1&perPage=10&cond%5BHOUSE_SECD%3A%3AEQ%5D=01&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}-${month}-${day}&serviceKey=${serviceKey}`,
@@ -208,7 +210,8 @@ const sendEmail = async (toEmail, addr, realtyType, realtyInfo) => {
 // onSchedule이 기본적으로는 UTC 시간대이기 때문에 UTC+9인 우리나라 환경을 고려, timeZone을 세팅해야 함
 // 청약홈 API는 익일 00 ~ 02시에 업데이트됨, 따라서 n일 정보를 n+1일 아침에 보내주기
 export const dailyInfoEmailing = onSchedule(
-  { schedule: "everyday 13:30", timeZone: "Asia/Seoul" },
+  // at minute 0 / at 8 am / every day of the month / every month / tue-sat
+  { schedule: "0 8 * * 2-6", timeZone: "Asia/Seoul" },
   async (event) => {
     try {
       // Firebase Admin을 이용하고 있기 때문에 로그인이 필요없음
