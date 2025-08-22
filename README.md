@@ -97,7 +97,7 @@ https://www.applyhome.co.kr/cu/cuc/selectSubscrptAllimiView.do
 
 ## Disclamer
 
-본 서비스는 <a href="https://www.applyhome.co.kr" target="_blank">청약홈</a>에서 제공하는 공공 API를 기반으로 구현된 비공식 알림 서비스입니다. 제공되는 정보는 청약홈의 API 데이터를 바탕으로 자동 수집 및 가공된 결과이며, 청약홈의 시스템 변경, 데이터 오류 또는 API의 일시적인 장애 등에 따라 실제 정보와 차이가 있을 수 있습니다.
+본 서비스는 <a href="https://www.applyhome.co.kr" target="blank">청약홈</a>에서 제공하는 공공 API를 기반으로 구현된 비공식 알림 서비스입니다. 제공되는 정보는 청약홈의 API 데이터를 바탕으로 자동 수집 및 가공된 결과이며, 청약홈의 시스템 변경, 데이터 오류 또는 API의 일시적인 장애 등에 따라 실제 정보와 차이가 있을 수 있습니다.
 
 따라서 본 서비스를 통해 제공되는 청약 정보는 참고용으로만 활용해 주시고, 정확하고 최신의 청약 공고 정보는 반드시 청약홈 공식 홈페이지에서 확인하시기 바랍니다.
 
