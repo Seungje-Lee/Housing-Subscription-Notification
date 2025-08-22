@@ -160,15 +160,20 @@ function districtSelect(regionCode, districtName) {
   let selectedDistrict = [];
 
   if (localStorage.getItem("district") == null) {
-    if (regionCode == "sejong") selectedDistrict.push(mapCode[regionCode]);
+    if (regionCode === "sejong") selectedDistrict.push(mapCode[regionCode]);
     else selectedDistrict.push(mapCode[regionCode] + " " + districtName);
   } else {
     selectedDistrict = JSON.parse(localStorage.getItem("district") || "[]");
 
     // 이미 localStorage에 저장되어 있다면 제거하고, 없으면 넣는 과정
-    let index = selectedDistrict.indexOf(
-      mapCode[regionCode] + " " + districtName
-    );
+    let index;
+    if (regionCode === "sejong") {
+      index = selectedDistrict.indexOf(districtName);
+    } else {
+      index = selectedDistrict.indexOf(
+        mapCode[regionCode] + " " + districtName
+      );
+    }
     if (index !== -1) {
       selectedDistrict.splice(index, 1);
     } else {
@@ -233,7 +238,9 @@ function drawDetailedMap(regionCode) {
           if (
             selectedDistrict.indexOf(
               mapCode[regionCode] + " " + feature.properties.name
-            ) !== -1
+            ) !== -1 ||
+            (feature.properties.name === "세종특별자치시" &&
+              selectedDistrict.indexOf(feature.properties.name) !== -1)
           ) {
             layer.setStyle(
               {
@@ -289,7 +296,12 @@ function drawDetailedMap(regionCode) {
 }
 
 function directToList() {
-  if (!confirm("청약 유형별 알림 리스트로 돌아가시겠습니까?")) return;
+  if (
+    !confirm(
+      '청약 유형별 알림 리스트로 돌아가시겠습니까?\n"지역구 선택 완료" 버튼을 누르지 않은 변경사항은 반영되지 않습니다. '
+    )
+  )
+    return;
   window.location.href = `list-display.html`;
 }
 
