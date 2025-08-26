@@ -232,7 +232,7 @@ function zipToProvince(firstThreeZip) {
   else if (firstThreeZip <= 81) return "서울특별시 양천구";
   else if (firstThreeZip <= 84) return "서울특별시 구로구";
   else if (firstThreeZip <= 86) return "서울특별시 금천구";
-  else if (firstThreeZip <= 88) return "서울특별시 관악구";
+  else if (firstThreeZip <= 89) return "서울특별시 관악구";
   else if (firstThreeZip >= 100 && firstThreeZip <= 101) return "경기도 김포시";
   else if (firstThreeZip <= 107) return "경기도 고양시";
   else if (firstThreeZip <= 109) return "경기도 파주시";
@@ -263,7 +263,7 @@ function zipToProvince(firstThreeZip) {
   else if (firstThreeZip <= 176) return "경기도 안성시";
   else if (firstThreeZip <= 180) return "경기도 평택시";
   else if (firstThreeZip <= 181) return "경기도 오산시";
-  else if (firstThreeZip <= 186) return "경기도 화성시";
+  else if (firstThreeZip <= 187) return "경기도 화성시";
   else if (firstThreeZip >= 210 && firstThreeZip <= 212)
     return "인천광역시 계양구";
   else if (firstThreeZip <= 214) return "인천광역시 부평구";
@@ -367,7 +367,7 @@ function zipToProvince(firstThreeZip) {
   else if (firstThreeZip <= 443) return "울산광역시 북구";
   else if (firstThreeZip <= 445) return "울산광역시 중구";
   else if (firstThreeZip <= 448) return "울산광역시 남구";
-  else if (firstThreeZip <= 450) return "울산광역시 울주군";
+  else if (firstThreeZip <= 451) return "울산광역시 울주군";
   else if (firstThreeZip >= 460 && firstThreeZip <= 461)
     return "부산광역시 기장군";
   else if (firstThreeZip <= 464) return "부산광역시 금정구";
@@ -445,7 +445,7 @@ function zipToProvince(firstThreeZip) {
   else if (firstThreeZip <= 615) return "광주광역시 동구";
   else if (firstThreeZip <= 618) return "광주광역시 남구";
   else if (firstThreeZip <= 621) return "광주광역시 서구";
-  else if (firstThreeZip <= 624) return "광주광역시 광산구";
+  else if (firstThreeZip <= 625) return "광주광역시 광산구";
   else if (firstThreeZip >= 630 && firstThreeZip <= 634)
     return "제주특별자치도 제주시";
   else if (firstThreeZip <= 636) return "제주특별자치도 서귀포시";
