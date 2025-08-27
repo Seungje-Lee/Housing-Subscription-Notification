@@ -10,10 +10,20 @@
   <body>
     <h1>부동산 청약 정보 알림 서비스</h1>
     <p>
-      청약홈에서 제공하는 청약 정보 알림 서비스를 개선하여 개수 제한 없이, 보다
-      자세한 설명을 첨부하여 알림으로 제공하는 서비스입니다.
+      본 서비스는 청약홈에서 제공하는
+      <a
+        href="https://www.applyhome.co.kr/cu/cuc/selectSubscrptAllimiView.do"
+        target="_blank"
+        >청약 알림 서비스</a
+      >를 개선하여 10개 개수 제한 없이, 자세한 설명을 첨부하여 알림으로 제공하는
+      서비스입니다.<br />
+      상세 설명은
+      <a
+        href="https://github.com/Seungje-Lee/Housing-Subscription-Notification/blob/main/README.md"
+        target="_blank"
+        >본 링크</a
+      >를 참조해주시기 바랍니다.
     </p>
-    <!-- <div class="bg-image"></div> -->
     <form id="login-form">
       <!-- 이메일 유효성 검사를 위해 type을 email이 아닌 text로 함 -->
       <input id="email" type="text" required placeholder="이메일 주소" />
@@ -25,7 +35,15 @@
       <a href="/create-account.html">계정 생성 페이지로 이동</a></span
     >
     <span class="notification-msg"></span>
-
+    <p id="disclaimer">
+      ※ 본 서비스는 청약홈의 공공 API를 활용한
+      <strong>비공식 알림 서비스</strong>입니다. <br />정확한 정보 확인 및 청약
+      신청은 반드시
+      <a href="https://www.applyhome.co.kr" target="_blank"
+        >청약홈 공식 홈페이지</a
+      >를 이용해주시기 바랍니다. <br />본 서비스는 청약홈 및 관계기관과
+      무관하며, 이로 인해 발생하는 문제에 대한 어떠한 법적 책임도 지지 않습니다.
+    </p>
     <!-- switcher - 계정 만들기, 비번 재설저 등 하는 부분/ -->
     <!-- export const Switcher = styled.span`
   margin-top: 20px;
