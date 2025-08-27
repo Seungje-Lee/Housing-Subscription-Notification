@@ -76,16 +76,18 @@ button {
 .saved-list li {
   padding: 0.5rem 0;
   border-bottom: 1px solid #eee;
-  /* display: inline; */
 }
 
 .saved-list li:last-child {
   border-bottom: none;
 }
 
-/* 리스트 컨테이너 설정 */
 .list-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
+}
+
+.hidden {
+  display: none;
 }

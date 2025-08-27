@@ -11,13 +11,7 @@ import {
 } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 
-// 쿼리 파라미터에서 지역 코드 추출
-//const params = new URLSearchParams(window.location.search);
-//const region = params.get("region");
 const logoutBtn = document.getElementById("logout");
-//const selectedDistrictList = document.querySelector(".selected-info ul");
-
-console.log();
 
 await auth.authStateReady();
 
@@ -28,15 +22,6 @@ auth.onAuthStateChanged((user) => {
 });
 
 const user = auth.currentUser;
-
-// let getQuery = query(
-//   collection(db, "apt"),
-//   // document 이름을 user.uid로 설정해둠
-//   where("userId", "==", user?.uid)
-// );
-
-// const snapshot = await getDoc(getQuery);
-// console.log(snapshot);
 
 const realtyType = [
   "apt",
@@ -51,18 +36,25 @@ const realtyType = [
 
 const docSnap = await getDoc(doc(db, "notificationList", user.uid));
 
-// console.log(docSnap.data().apt);
-
 // 각 청약 유형별로 신청한 지역별 알림 정보를 보여줌
 realtyType.forEach((realty) => {
   const selectedRealtyType = document.querySelector(`#${realty} ul`);
   const storedList = docSnap.data()[realty];
 
-  storedList.forEach((item) => {
+  storedList.forEach((item, index) => {
     const district = document.createElement("li");
     district.textContent = item;
+    if (index >= 5) {
+      district.setAttribute("class", "hidden");
+    }
     selectedRealtyType.appendChild(district);
   });
+  if (storedList.length >= 6) {
+    const ellipsis = document.createElement("li");
+    ellipsis.textContent = "···";
+    ellipsis.setAttribute("class", "ellipsis");
+    selectedRealtyType.appendChild(ellipsis);
+  }
 });
 
 function handleLogout() {
@@ -72,115 +64,39 @@ function handleLogout() {
   });
 }
 
-logoutBtn.addEventListener("click", handleLogout);
-
 function directToMap(type) {
   window.location.href = `map.html?type=${type}`;
 }
 
-realtyType.forEach(function (type) {
+function toggleFullList(type) {
+  // 더보기 textContent 수정
+  // toggle로 바꿔줘야 함
+  // 마지막 middot
+  const realtyList = document.querySelectorAll(`#${type} li`);
+  realtyList.forEach((item, index) => {
+    if (index >= 5) item.classList.toggle("hidden");
+  });
+
+  const toggleBtn = document.querySelector(`#${type} .show-more`);
+  const ellipsis = document.querySelector(`#${type} .ellipsis`);
+  if (toggleBtn.textContent === "더보기") {
+    toggleBtn.textContent = "간략히 보기";
+    ellipsis.style.display = "none";
+  } else {
+    toggleBtn.textContent = "더보기";
+    ellipsis.style.display = "list-item";
+  }
+}
+
+logoutBtn.addEventListener("click", handleLogout);
+realtyType.forEach((type) => {
   const directToMapBtn = document.querySelector(`#${type} button`);
   directToMapBtn.addEventListener("click", () => {
     directToMap(type);
   });
+
+  const listToggleBtn = document.querySelector(`#${type} .show-more`);
+  listToggleBtn.addEventListener("click", () => {
+    toggleFullList(type);
+  });
 });
-
-// function districtSelect(regionCode, districtName) {
-//   let selectedDistrict = [];
-
-//   if (localStorage.getItem("district") == null) {
-//     selectedDistrict.push(mapCode[regionCode] + " " + districtName);
-//   } else {
-//     selectedDistrict = JSON.parse(localStorage.getItem("district") || "[]");
-
-//     // 이미 localStorage에 저장되어 있다면 제거하고, 없으면 넣는 과정
-//     let index = selectedDistrict.indexOf(
-//       mapCode[regionCode] + " " + districtName
-//     );
-//     if (index !== -1) {
-//       selectedDistrict.splice(index, 1);
-//     } else {
-//       selectedDistrict.push(mapCode[regionCode] + " " + districtName);
-//     }
-//   }
-//   selectedDistrict.sort();
-//   localStorage.setItem("district", JSON.stringify(selectedDistrict));
-
-//   // 지도 위에 띄우는 div에 선택한 영역 보여주는 부분
-//   while (selectedDistrictList.firstChild)
-//     selectedDistrictList.removeChild(selectedDistrictList.firstChild);
-
-//   JSON.parse(localStorage.getItem("district") || "[]").map((item) => {
-//     const district = document.createElement("li");
-//     district.textContent = item;
-//     district.style.cssText = "text-align: start;";
-//     selectedDistrictList.appendChild(district);
-//   });
-// }
-
-// JSON.parse(localStorage.getItem("district") || "[]").map((item) => {
-//   const district = document.createElement("li");
-//   district.textContent = item;
-//   district.style.cssText = "text-align: start;";
-//   selectedDistrictList.appendChild(district);});
-
-// async function handleSubmit() {
-//   const user = auth.currentUser;
-//   const selectedDistrict = JSON.parse(localStorage.getItem("district"));
-//   confirm("아래 지역 목록을 제출하시겠습니까?");
-//   try {
-//     await setDoc(doc(db, "notificationList", user.uid), {
-//       selectedDistrict,
-//     });
-//     // await addDoc(collection(db, "notificationList"), {
-//     //   selectedDistrict,
-//     //   userId: user.uid,
-//     // });
-//     // console.log("제출됨");
-
-//   // await setDoc(doc(db, "cities", "LA"), {
-//   //   name: "Los Angeles",
-//   //   state: "CA",
-//   //   country: "USA"
-//   // });
-
-//     // const snapshot = await getDocs(tweetsQuery);
-//     // const tweets = snapshot.docs.map((doc) => {
-//     //   const { createdAt, tweet, userId, username } = doc.data();
-//     //   return {
-//     //     createdAt,
-//     //     tweet,
-//     //     userId,
-//     //     username,
-//     //     id: do xc.id,
-//     //   };
-//     // });
-
-//     const getQuery = query(
-//       collection(db, "notificationList"),
-//       where("userId", "==", user?.uid)
-//     );
-//     //    const snapshot = await getDoc(getQuery);
-//     //    console.log(snapshot);
-
-//     const docSnap = await getDoc(doc(db, "notificationList", user.uid));
-
-//     console.log(docSnap.data().selectedDistrict);
-
-//     // snapshot.docs.map((doc) => {
-//     //   const list = doc.data();
-//     //   console.log(list)
-//     // });
-
-//     // console.log(
-//     //   snapshot.docs[0]._document.data.value.mapValue.fields.selectedDistrict
-//     //     .arrayValue.values[0].stringValue
-//     // );
-
-//     // const fetchTweets = async () => {
-//     //   const querySnapshot = await getDocs(collection(db, "notificationList"));
-//     //   console.log(querySnapshot);
-//   } catch (e) {
-//     console.log(e);
-//   }
-// }
