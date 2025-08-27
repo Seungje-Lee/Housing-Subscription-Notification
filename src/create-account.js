@@ -16,7 +16,7 @@ async function handleAccountCreation(event) {
   notiMsg.textContent = "";
 
   // firebase 자체 이메일 검증을 이용해볼 것
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const emailRegex = /^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!emailRegex.test(email.value)) {
     notiMsg.textContent = "유효한 이메일 주소를 입력하세요";
     return;
