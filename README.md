@@ -1,5 +1,9 @@
 # Housing Subscription Notification Service
 
+## Project URL
+
+https://housing-subscription-noti.web.app/
+
 ## Purpose
 
 https://www.applyhome.co.kr/cu/cuc/selectSubscrptAllimiView.do
@@ -19,6 +23,8 @@ https://www.applyhome.co.kr/cu/cuc/selectSubscrptAllimiView.do
 - 지도 기반 지역 선택 기능
 - 사용자 선택애 기반한 지역 단위 알림 발송
 - 템플릿 기반의 HTML 이메일 알림
+
+청약홈 분양정보 조회 서비스 API는 익일 00~02시 사이에 업데이트되기에 알림 신청을 하실 경우 월요일~금요일에 업데이트되는 내용을 익일인 화요일~토요일에 받아볼 수 있습니다.
 
 ## Notification Template Example
 
@@ -83,7 +89,7 @@ https://www.applyhome.co.kr/cu/cuc/selectSubscrptAllimiView.do
 
 ## Reference
 
-### Map Source(GeoJSON)
+### Map Source(GeoJSON data)
 
 - 전국 지도 GeoJSON data source  
   https://github.com/southkorea/southkorea-maps/tree/master/kostat/2018/json
@@ -92,8 +98,12 @@ https://www.applyhome.co.kr/cu/cuc/selectSubscrptAllimiView.do
   https://github.com/southkorea/southkorea-maps/tree/master/kostat/2013/json
   - 행정구역 참고 사항
     - 2014년 청주시-청원시 통합
-    - 2023년 군위군의 대구광역시 편입 반영
+    - 2023년 군위군의 대구광역시 편입
     - 2026년 인천광역시 행정체제 개편 예정
+
+### ZIP Code
+
+https://www.koreapost.go.kr/
 
 ## Disclamer
 
