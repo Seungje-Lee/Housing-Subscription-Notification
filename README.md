@@ -51,6 +51,8 @@ https://www.applyhome.co.kr/cu/cuc/selectSubscrptAllimiView.do
 
 ### Sample Image
 
+<img width="829" height="473" alt="Screenshot 2025-09-04 at 5 47 17 PM" src="https://github.com/user-attachments/assets/e02b3383-8186-4b02-981f-b87542b2b0ff" />
+
 ## Tech Stack
 
 <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/html.png" alt="HTML" title="HTML"/>
