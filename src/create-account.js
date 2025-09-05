@@ -9,6 +9,9 @@ const email = document.querySelector("#email");
 const password = document.querySelector("#password");
 const loginForm = document.querySelector("#sign-in-form");
 const notiMsg = document.querySelector(".notification-msg");
+const pwdDisplayBtn = document.querySelector("#pw_hide");
+const viewPwdImg = document.querySelector("#pw_hide svg:first-child");
+const hidePwdImg = document.querySelector("#pw_hide svg:last-child");
 
 async function handleAccountCreation(event) {
   let credentials;
@@ -64,4 +67,30 @@ async function handleAccountCreation(event) {
     });
 }
 
+function handlePwdDisplay() {
+  if (password.type === "password") {
+    password.type = "text";
+    viewPwdImg.classList.add("hidden");
+    hidePwdImg.classList.remove("hidden");
+  } else {
+    password.type = "password";
+    viewPwdImg.classList.remove("hidden");
+    hidePwdImg.classList.add("hidden");
+  }
+}
+
+function handlePasswordInput() {
+  if (password.value === "") {
+    viewPwdImg.classList.add("hidden");
+    hidePwdImg.classList.add("hidden");
+  } else if (
+    viewPwdImg.classList.contains("hidden") &&
+    hidePwdImg.classList.contains("hidden")
+  ) {
+    viewPwdImg.classList.remove("hidden");
+  }
+}
+
 loginForm.addEventListener("submit", handleAccountCreation);
+pwdDisplayBtn.addEventListener("click", handlePwdDisplay);
+password.addEventListener("input", handlePasswordInput);

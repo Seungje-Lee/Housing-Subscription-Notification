@@ -1,13 +1,14 @@
-//import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase.js";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 // import { FirebaseError } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
-// const bgImage = document.querySelector(".bg-image");
 const email = document.querySelector("#email");
 const password = document.querySelector("#password");
 const loginForm = document.querySelector("#login-form");
 const notiMsg = document.querySelector(".notification-msg");
+const pwdDisplayBtn = document.querySelector("#pw_hide");
+const viewPwdImg = document.querySelector("#pw_hide svg:first-child");
+const hidePwdImg = document.querySelector("#pw_hide svg:last-child");
 
 async function handleLogin(event) {
   event.preventDefault();
@@ -82,4 +83,33 @@ async function handleLogin(event) {
 //   console.log(name, email, password);
 // }
 
+function handlePwdDisplay() {
+  if (password.type === "password") {
+    password.type = "text";
+    viewPwdImg.classList.add("hidden");
+    hidePwdImg.classList.remove("hidden");
+  } else {
+    password.type = "password";
+    viewPwdImg.classList.remove("hidden");
+    hidePwdImg.classList.add("hidden");
+  }
+}
+
+function handlePasswordInput() {
+  if (password.value === "") {
+    viewPwdImg.classList.add("hidden");
+    hidePwdImg.classList.add("hidden");
+  } else if (
+    viewPwdImg.classList.contains("hidden") &&
+    hidePwdImg.classList.contains("hidden")
+  ) {
+    viewPwdImg.classList.remove("hidden");
+  }
+}
+
+// 만약 둘다 안보이는 상황이라면
+// classList.contains(hidden) == true 둘다
+
 loginForm.addEventListener("submit", handleLogin);
+pwdDisplayBtn.addEventListener("click", handlePwdDisplay);
+password.addEventListener("input", handlePasswordInput);

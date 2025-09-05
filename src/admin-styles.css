@@ -37,14 +37,50 @@ p {
 
 #disclaimer {
   font-size: 17px;
-  /* body의 50% */
+  /* body의 10% */
   margin-top: 10%;
-  text-align: left;
+  text-align: center;
+}
+
+/* .input-container {
+  This is the key to positioning the button
+  position: relative;
+  width: 70%;
+  margin: auto;
+} */
+
+.input-container {
+  /* Set position: relative to serve as the reference point for the absolute-positioned button */
+  position: relative;
+  /* Ensure it has a defined width */
+  width: 70%;
+  margin: 10px auto; /* Add margin to center it and create space */
+}
+
+.input-container input {
+  /* This ensures the input fills the container and aligns properly */
+  width: 100%;
+  padding-right: 60px; /* Add padding to prevent the button from covering the input text */
+}
+
+#pw_hide {
+  position: absolute;
+  /* Adjust right to position it from the right edge of the container */
+  right: 15px;
+  /* Vertically center the button */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  z-index: 7;
 }
 
 input,
 button {
-  /* margin-top: 10px; */
   padding: 15px 20px;
   border-radius: 50px;
   border: solid;
@@ -54,6 +90,24 @@ button {
   margin: auto;
   width: 70%;
 }
+
+/* #pw_hide {
+  Position the button absolutely within its relative parent
+  position: absolute;
+  Adjust these values to fine-tune the placement
+  right: 15px; Adjust as needed
+  top: 50%;
+  transform: translateY(-50%); Centering trick
+
+  Styling to make it look like part of the input
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  z-index: 7;
+} */
 
 button[type="submit"] {
   cursor: pointer;
@@ -88,4 +142,8 @@ span {
   margin-top: 20px;
   font-weight: 800;
   color: #ed4848;
+}
+
+.hidden {
+  display: none;
 }
