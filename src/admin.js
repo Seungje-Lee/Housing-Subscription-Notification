@@ -1,6 +1,6 @@
-import { auth } from "../firebase.js";
+import { auth, db } from "../firebase.js";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
-// import { FirebaseError } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const email = document.querySelector("#email");
 const password = document.querySelector("#password");
@@ -37,6 +37,22 @@ async function handleLogin(event) {
       return;
     }
 
+    const docSnapshot = await getDoc(doc(db, "notificationList", user.uid));
+    console.log(docSnapshot);
+    if (!docSnapshot.exists()) {
+      setDoc(doc(db, "notificationList", user.uid), {
+        email: email.value,
+        apt: [],
+        office: [],
+        prePrivate: [],
+        publicRent: [],
+        random: [],
+        resupplyTorts: [],
+        voluntarySupply: [],
+        newlyweds: [],
+      });
+    }
+
     notiMsg.textContent =
       "로그인에 성공하였습니다. 잠시 후 내 프로필로 이동합니다...";
     setTimeout(() => {
@@ -61,28 +77,6 @@ async function handleLogin(event) {
   }
 }
 
-// const onSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
-//   e.preventDefault();
-//   setError("");
-//   if(isLoading || name === "" || email === "" || password === "") return;
-//   try {
-//     setLoading(true);
-//     const credentials = await createUserWithEmailAndPassword(auth, email, password);
-//     console.log(credentials.user);
-//     await updateProfile(credentials.user, {
-//       displayName: name,
-//     });
-//     navigate("/");
-//   } catch(e) {
-//     if(e instanceof FirebaseError) {
-//       setError(e.message);
-//     }
-//   } finally {
-//     setLoading(false);
-//   }
-//   console.log(name, email, password);
-// }
-
 function handlePwdDisplay() {
   if (password.type === "password") {
     password.type = "text";
@@ -106,9 +100,6 @@ function handlePasswordInput() {
     viewPwdImg.classList.remove("hidden");
   }
 }
-
-// 만약 둘다 안보이는 상황이라면
-// classList.contains(hidden) == true 둘다
 
 loginForm.addEventListener("submit", handleLogin);
 pwdDisplayBtn.addEventListener("click", handlePwdDisplay);

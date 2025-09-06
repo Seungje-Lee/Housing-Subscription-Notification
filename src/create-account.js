@@ -27,7 +27,6 @@ async function handleAccountCreation(event) {
 
   await auth.authStateReady();
   try {
-    // const credentials = await createUserWithEmailAndPassword(
     credentials = await createUserWithEmailAndPassword(
       auth,
       email.value,
@@ -49,18 +48,6 @@ async function handleAccountCreation(event) {
     .then(() => {
       notiMsg.textContent =
         "이메일로 전송된 메일 검증 링크를 클릭하세요. 이메일을 수신하지 못했을 경우, 스팸메일함을 확인해주세요.";
-      // 여기에 user.uid로 테이블 만들어주기
-      setDoc(doc(db, "notificationList", user.uid), {
-        email: email.value,
-        apt: [],
-        office: [],
-        prePrivate: [],
-        publicRent: [],
-        random: [],
-        resupplyTorts: [],
-        voluntarySupply: [],
-        newlyweds: [],
-      });
     })
     .catch(() => {
       notiMsg.textContent = "오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
