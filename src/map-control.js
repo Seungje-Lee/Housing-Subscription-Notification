@@ -9,6 +9,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { signOut } from "firebase/auth";
+import L from "leaflet";
 
 const params = new URLSearchParams(window.location.search);
 const realtyType = params.get("type");
@@ -185,6 +186,7 @@ function districtSelect(regionCode, districtName) {
   localStorage.setItem("district", JSON.stringify(selectedDistrict));
 
   // 지도 위에 띄우는 div에 선택한 영역 보여주는 부분
+  // 다 지우고 처음부터 다시 세텅해서 보여주지 않도록 바꿔보기
   while (selectedDistrictList.firstChild)
     selectedDistrictList.removeChild(selectedDistrictList.firstChild);
 
