@@ -22,22 +22,22 @@ const day = date.getDate() >= 10 ? date.getDate() : "0" + date.getDate();
 logger.log(date);
 
 const urlList = {
-  apt: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancDetail?page=1&perPage=10&cond%5BHOUSE_SECD%3A%3AEQ%5D=01&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}-${month}-${day}&serviceKey=${serviceKey}`,
+  apt: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancDetail?page=1&perPage=20&cond%5BHOUSE_SECD%3A%3AEQ%5D=01&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}-${month}-${day}&serviceKey=${serviceKey}`,
 
-  prePrivate: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancDetail?page=1&perPage=10&cond%5BHOUSE_SECD%3A%3AEQ%5D=09&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}-${month}-${day}&serviceKey=${serviceKey}`,
+  prePrivate: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancDetail?page=1&perPage=20&cond%5BHOUSE_SECD%3A%3AEQ%5D=09&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}-${month}-${day}&serviceKey=${serviceKey}`,
 
-  newlyweds: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancDetail?page=1&perPage=10&cond%5BHOUSE_SECD%3A%3AEQ%5D=10&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}-${month}-${day}&serviceKey=${serviceKey}`,
+  newlyweds: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancDetail?page=1&perPage=20&cond%5BHOUSE_SECD%3A%3AEQ%5D=10&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}-${month}-${day}&serviceKey=${serviceKey}`,
 
-  office: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getUrbtyOfctlLttotPblancDetail?page=1&perPage=10&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}-${month}-${day}&serviceKey=${serviceKey}`,
+  office: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getUrbtyOfctlLttotPblancDetail?page=1&perPage=20&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}-${month}-${day}&serviceKey=${serviceKey}`,
 
-  random: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getRemndrLttotPblancDetail?page=1&perPage=10&cond%5BHOUSE_SECD%3A%3AEQ%5D=04&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}-${month}-${day}&serviceKey=${serviceKey}`,
+  random: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getRemndrLttotPblancDetail?page=1&perPage=20&cond%5BHOUSE_SECD%3A%3AEQ%5D=04&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}-${month}-${day}&serviceKey=${serviceKey}`,
 
-  resupplyTorts: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getRemndrLttotPblancDetail?page=1&perPage=10&cond%5BHOUSE_SECD%3A%3AEQ%5D=06&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}-${month}-${day}&serviceKey=${serviceKey}`,
+  resupplyTorts: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getRemndrLttotPblancDetail?page=1&perPage=20&cond%5BHOUSE_SECD%3A%3AEQ%5D=06&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}-${month}-${day}&serviceKey=${serviceKey}`,
 
   // 공공지원민간임대, 임의공굽 API의 날짜 형식이 살짝 다름
-  publicRent: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getPblPvtRentLttotPblancDetail?page=1&perPage=10&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}${month}${day}&serviceKey=${serviceKey}`,
+  publicRent: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getPblPvtRentLttotPblancDetail?page=1&perPage=20&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}${month}${day}&serviceKey=${serviceKey}`,
 
-  voluntarySupply: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getOPTLttotPblancDetail?page=1&perPage=10&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}${month}${day}&serviceKey=${serviceKey}`,
+  voluntarySupply: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getOPTLttotPblancDetail?page=1&perPage=20&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}${month}${day}&serviceKey=${serviceKey}`,
 };
 
 function createEmailTemplate(addr, realtyType, realtyInfo) {
@@ -65,6 +65,9 @@ function createEmailTemplate(addr, realtyType, realtyInfo) {
               } ~ ${realtyInfo.RCEPT_ENDDE}</li>
               <li><strong>당첨자 발표일: </strong> ${
                 realtyInfo.PRZWNER_PRESNATN_DE
+              }</li>
+              <li><strong>입주 예정월:<strong> ${
+                realtyInfo.MVN_PREARNGE_YM
               }</li>
               <li><strong>홈페이지 주소:</strong> 
               ${
@@ -106,6 +109,9 @@ function createEmailTemplate(addr, realtyType, realtyInfo) {
               } ~ ${realtyInfo.SUBSCRPT_RCEPT_ENDDE}</li>
               <li><strong>당첨자 발표일: </strong> ${
                 realtyInfo.PRZWNER_PRESNATN_DE
+              }</li>
+              <li><strong>입주 예정월:<strong> ${
+                realtyInfo.MVN_PREARNGE_YM
               }</li>
               <li><strong>홈페이지 주소:</strong> 
               ${
@@ -151,6 +157,9 @@ function createEmailTemplate(addr, realtyType, realtyInfo) {
               <li><strong>당첨자 발표일: </strong> ${
                 realtyInfo.PRZWNER_PRESNATN_DE
               }</li>
+              <li><strong>입주 예정월:<strong> ${
+                realtyInfo.MVN_PREARNGE_YM
+              }</li>
               <li><strong>홈페이지 주소:</strong> 
               ${
                 realtyInfo.HMPG_ADRES
@@ -193,14 +202,17 @@ const sendEmail = async (toEmail, addr, realtyType, realtyInfo) => {
   };
 
   const mailOptions = {
-    from: process.env.EMAIL_ADDR,
+    from: {
+      name: "부동산 청약 알리미",
+      address: process.env.EMAIL_ADDR,
+    },
     to: toEmail,
     subject: `[부동산 청약 알림] ${addr} ${typeToKorean[realtyType]}`,
     html: createEmailTemplate(addr, realtyType, realtyInfo),
   };
 
   try {
-    await transporter.sendMail(mailOptions);
+    transporter.sendMail(mailOptions);
     logger.log(`Email sent successfully to ${toEmail}`);
   } catch (error) {
     logger.error(`Failed to send email to ${toEmail}:`, error);
@@ -511,6 +523,7 @@ export const dailyInfoEmailing = onSchedule(
       }
 
       logger.log("Scheduled job finished successfully.");
+      // Node.js에서 Cloud Firestore 이벤트와 같은 이벤트 기반 함수는 비동기 함수입니다. 콜백 함수는 null, 객체, Promise 중 하나를 반환해야 한다
       return null;
     } catch (error) {
       logger.error("Error in scheduled job:", error);
