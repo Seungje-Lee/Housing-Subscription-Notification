@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import { onSchedule } from "firebase-functions/v2/scheduler";
+import { onDocumentCreated } from "firebase-functions/v2/firestore";
 import { logger, setGlobalOptions } from "firebase-functions/v2";
 import nodemailer from "nodemailer";
 
@@ -40,7 +41,7 @@ const urlList = {
   voluntarySupply: `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getOPTLttotPblancDetail?page=1&perPage=20&cond%5BRCRIT_PBLANC_DE%3A%3AGTE%5D=${year}${month}${day}&serviceKey=${serviceKey}`,
 };
 
-function createEmailTemplate(addr, realtyType, realtyInfo) {
+function createRealtyEmailTemplate(addr, realtyType, realtyInfo) {
   switch (realtyType) {
     case "apt":
     case "newlyweds":
@@ -66,7 +67,7 @@ function createEmailTemplate(addr, realtyType, realtyInfo) {
               <li><strong>당첨자 발표일: </strong> ${
                 realtyInfo.PRZWNER_PRESNATN_DE
               }</li>
-              <li><strong>입주 예정월:<strong> ${
+              <li><strong>입주 예정월:</strong> ${
                 realtyInfo.MVN_PREARNGE_YM
               }</li>
               <li><strong>홈페이지 주소:</strong> 
@@ -110,7 +111,7 @@ function createEmailTemplate(addr, realtyType, realtyInfo) {
               <li><strong>당첨자 발표일: </strong> ${
                 realtyInfo.PRZWNER_PRESNATN_DE
               }</li>
-              <li><strong>입주 예정월:<strong> ${
+              <li><strong>입주 예정월:</strong> ${
                 realtyInfo.MVN_PREARNGE_YM
               }</li>
               <li><strong>홈페이지 주소:</strong> 
@@ -157,7 +158,7 @@ function createEmailTemplate(addr, realtyType, realtyInfo) {
               <li><strong>당첨자 발표일: </strong> ${
                 realtyInfo.PRZWNER_PRESNATN_DE
               }</li>
-              <li><strong>입주 예정월:<strong> ${
+              <li><strong>입주 예정월:</strong> ${
                 realtyInfo.MVN_PREARNGE_YM
               }</li>
               <li><strong>홈페이지 주소:</strong> 
@@ -189,7 +190,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendEmail = async (toEmail, addr, realtyType, realtyInfo) => {
+const sendRealtyInfoEmail = async (toEmail, addr, realtyType, realtyInfo) => {
   const typeToKorean = {
     apt: "아파트",
     newlyweds: "신혼희망타운",
@@ -208,7 +209,7 @@ const sendEmail = async (toEmail, addr, realtyType, realtyInfo) => {
     },
     to: toEmail,
     subject: `[부동산 청약 알림] ${addr} ${typeToKorean[realtyType]}`,
-    html: createEmailTemplate(addr, realtyType, realtyInfo),
+    html: createRealtyEmailTemplate(addr, realtyType, realtyInfo),
   };
 
   try {
@@ -516,7 +517,7 @@ export const dailyInfoEmailing = onSchedule(
           for (const user of userInfo) {
             if (user[type].includes(dbAddr)) {
               logger.log(`Sending email to ${user.email} about ${dbAddr}`);
-              await sendEmail(user.email, dbAddr, type, realty);
+              await sendRealtyInfoEmail(user.email, dbAddr, type, realty);
             }
           }
         }
@@ -527,6 +528,78 @@ export const dailyInfoEmailing = onSchedule(
       return null;
     } catch (error) {
       logger.error("Error in scheduled job:", error);
+      return null;
+    }
+  }
+);
+
+const sendIntroEmail = async (toEmail) => {
+  const mailOptions = {
+    from: {
+      name: "부동산 청약 알리미",
+      address: process.env.EMAIL_ADDR,
+    },
+    to: toEmail,
+    subject: "🏠부동산 청약 알리미 서비스 소개",
+    html: `
+        <html>
+          <body>
+            <p>부동산 청약 알리미 서비스에 가입하신 것을 진심으로 환영합니다.🎉 관심 지역의 자세한 청약 정보를 이메일로 간편하게 받아보세요.</p>
+            <p>본 서비스는 청약홈의 <a href="https://www.applyhome.co.kr/cu/cuc/selectSubscrptAllimiView.do">청약알리미 서비스</a>가 가지고 있는 몇 가지 제한점을 개선하여, 더 편리하게 정보를 받아보실 수 있도록 만들었습니다.</p>
+            <h3>✅부동산 청약 알리미를 선택해야 하는 이유</h3>
+            <ul>
+              <li>🔔지역 제한 없이 알림 받기:<br>청약홈은 최대 10개의 시 단위 지역까지만 알림 설정이 가능하지만, 본 서비스는 <strong>지역 개수 제한 없이</strong> 원하는 만큼 설정할 수 있습니다.</li>
+              <br>
+              <li>🗺️지도로 간편하게 관심 지역 선택하기:<br>지도를 통해 <strong>직관적으로 관심 지역을 선택</strong>할 수 있습니다. 더 이상 수십 개의 행정구역 목록에서 관심 지역을 찾지 마세요.</li>
+              <br>
+              <li>👀다양한 유형의 청약 정보:<br><strong>"아파트, 민간사전청약, 신혼희망타운, 오피스텔, 무순위청약, 불법행위 재공급, 공공지원민간임대, 임의공급"</strong> 8개의 청약 유형에 대해 관심 있는 유형만 골라서 알림을 받아보세요.</li>
+            </ul>
+            <h3>‼️서비스 이용 시 유의사항</h3>
+            <ul>
+              <li>🙅청약홈의 공식 서비스가 아니에요:<br>본 서비스는 청약홈의 공공 API를 활용해 제공하는 비공식 알림 서비스이며, 청약홈 또는 관계 기관과 어떠한 공식적인 관련이 없습니다. 시스템 오류로 제때 정보를 받아보지 못하거나 정보에 오류가 있을 수 있으니, 최종적인 청약 정보는 반드시 청약홈 공식 홈페이지에서 확인하시기 바랍니다.</li>
+              <br>
+              <li>📅공고를 다음날 보내드려요:<br>청약홈의 데이터 처리로 인해 업데이트된 공고를 당일에 바로 보내드리기 어렵습니다. 월요일부터 금요일까지 업데이트된 공고 내용은 익일(화요일~토요일) 오전 8시에 이메일로 보내드립니다.</li>
+              <br>
+              <li>🚫비정상적인 행위는 제지해요:<br>본 서비스는 사용량에 비례하는 구글의 유료 요금제 계정으로 제공되고 있습니다. 하지만 무료로 제공하고 있는 서비스인만큼 과도한 비용 청구의 원인이 될 수 있는 비정상적인 행위가 탐지될 경우 사전 통지 없이 차단될 수 있습니다.</li>
+            </ul>
+          <p>문의사항이나 오류 제보, 개선했으면 하는 점이 있다면 언제든지 이 메일로 회신 부탁드립니다.</p>
+          <p>앞으로도 더 나은 서비스를 제공하기 위해 노력하겠습니다.<br>감사합니다.</p>
+          </body>
+        </html>
+      `,
+  };
+
+  try {
+    transporter.sendMail(mailOptions);
+    logger.log(`[Intro] Email sent successfully to ${toEmail}`);
+  } catch (error) {
+    logger.error(`[Intro] Failed to send email to ${toEmail}:`, error);
+  }
+};
+
+export const sendNotiToNewcomer = onDocumentCreated(
+  // onDocumentCreated parameter에 대한 이해가 더 필요
+
+  // Listens for new messages added to /messages/:documentId/original
+  // and saves an uppercased version of the message
+  // to /messages/:documentId/uppercase
+  // exports.makeuppercase = onDocumentCreated("/messages/{documentId}"
+  // firebase guide에서 위와 같이 했으니 notificationList에 대한 변화를 듣도록 설정함
+
+  "notificationList/{documentID}",
+  async (event) => {
+    try {
+      const snapshot = event.data;
+      if (!snapshot) {
+        throw new Error("No data associated with the event");
+      }
+      const data = snapshot.data();
+      await sendIntroEmail(data.email);
+      logger.log("Sending notification email finished successfully.");
+      // Node.js에서 Cloud Firestore 이벤트와 같은 이벤트 기반 함수는 비동기 함수입니다. 콜백 함수는 null, 객체, Promise 중 하나를 반환해야 한다
+      return null;
+    } catch (error) {
+      logger.error("Error in sending notification email:", error);
       return null;
     }
   }
